@@ -11,11 +11,11 @@ Assignment for discussion during technical interview
 ### About
 - Parsing json using Jackson (I map each key in the json to a jsonproperty attribute)
 
-- Inventory consists of Article(s)
+- Inventory consists of Article(s) (maps 'art_id', 'name' and 'stock')
 
 - Products consists of Product (maps 'name' and 'contain_articles' keys) which in turn consists of ProductArticle (maps 'art_id' and 'amount_of' keys)
 
-- Warehouse holds Inventory + Product (maps 'art_id', 'name' and 'stock')
+- Warehouse holds Inventory + Product + InventoryManager + ProductManager
 
 - FileLoader is an interface which is implemented by both the InventoryManager and ProductManager to import the json files
 
