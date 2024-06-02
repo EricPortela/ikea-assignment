@@ -1,12 +1,6 @@
 # ikea-assignment
 Assignment for discussion during technical interview
 
-### Improvements
-- Currently both Inventory.java and Products.java store their items in a list (affects time complexity when these grow)
-- I load both inventory and products inside of WareHouse, I should have refactored it a bit. I thought of creating two interfaces for loading inventory and products separately each with a load method + getter + map attribute, and then implement the interfaces. Then just use references to the implemented interfaces and call their respective load functions inside of WareHouse
-- Conversion of the lists to HashMaps are performed in the WareHouse class, possibly move to Inventory and Products
-
-
 ### About
 - Parsing json using Jackson (I map each key in the json to a jsonproperty attribute)
 
@@ -15,5 +9,7 @@ Assignment for discussion during technical interview
 - Products consists of Product which in turn consists of ProductPart
 
 - Warehouse holds Inventory + Product
+
+- FileLoader is an interface which is implemented by both the InventoryManager and ProductManager to import the json files
 
 - Both Inventory.java and Products.java are classes used to map the two json files to these classes (I'm more used to structs in Swift)
