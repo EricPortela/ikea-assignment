@@ -6,7 +6,7 @@ Assignment for discussion during technical interview
 
 - Inventory consists of Article(s)
 
-- Products consists of Product which in turn consists of ProductPart
+- Products consists of Product which in turn consists of ProductArticle
 
 - Warehouse holds Inventory + Product
 
