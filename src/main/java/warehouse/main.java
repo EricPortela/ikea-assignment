@@ -13,12 +13,13 @@ public class main {
 
         System.out.println(wh.getAvailableProducts());
 
+        System.out.println(wh.sellProduct("Dinning Chair", 1));
         System.out.println(wh.sellProduct("Dinning Table", 1));
         System.out.println(wh.sellProduct("Dining Chair", 1));
         System.out.println(wh.sellProduct("Dining Chair", 2));
 
         System.out.println(wh.getAvailableProducts());
-        System.out.println(wh.sellProduct("Dining Chair", 1));
+        // System.out.println(wh.sellProduct("Dining Chair", 1));
         System.out.println(wh.getInventory());
     }
 }

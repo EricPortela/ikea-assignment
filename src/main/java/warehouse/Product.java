@@ -9,7 +9,7 @@ public class Product {
     private String name;
 
     @JsonProperty("contain_articles")
-    private List<ProductPart> containArticles;
+    private List<ProductArticle> containArticles;
 
     public Product() {
     }
@@ -18,7 +18,7 @@ public class Product {
         return name;
     }
 
-    public List<ProductPart> getProductParts() {
+    public List<ProductArticle> getProductParts() {
         return containArticles;
     }
 
@@ -28,7 +28,7 @@ public class Product {
         StringBuilder sb = new StringBuilder();
         sb.append("\n" + name + "\n");
 
-        for (ProductPart part : containArticles) {
+        for (ProductArticle part : containArticles) {
             sb.append("\n" + part.toString() + "\n");
         }
 

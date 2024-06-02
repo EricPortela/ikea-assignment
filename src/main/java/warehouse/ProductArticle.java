@@ -2,7 +2,7 @@ package warehouse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ProductPart {
+public class ProductArticle {
 
     @JsonProperty("art_id")
     private int articleID;
@@ -10,7 +10,7 @@ public class ProductPart {
     @JsonProperty("amount_of")
     private int amount;
 
-    public ProductPart() {
+    public ProductArticle() {
 
     }
 

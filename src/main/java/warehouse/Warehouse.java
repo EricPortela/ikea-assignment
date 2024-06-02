@@ -1,8 +1,6 @@
 package warehouse;
-import java.io.File;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Warehouse {
 
@@ -10,27 +8,24 @@ public class Warehouse {
     private Map<Integer, Article> inventoryMap; //This represents current inventory - Format: {id: Article}
     private Map<String, Product> productMap; //This represents all products (doesnt take into account inv) - Format: {name: Product}
 
+    private ProductManager productManager;
+    private InventoryManager inventoryManager;
+
     public Warehouse() {
         this.availableProducts = new HashMap<>();
         this.inventoryMap = new HashMap<>();
         this.productMap = new HashMap<>();
+        this.productManager = new ProductManager(new ObjectMapper());
+        this.inventoryManager = new InventoryManager(new ObjectMapper());
+
     }
 
     public boolean loadInventory(String path) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            Inventory inventory = mapper.readValue(new File(path), Inventory.class);
-
-            this.inventoryMap = inventory.getInventory().stream()
-                    .collect(Collectors.toMap(Article::getArticleId, article -> article));
-            
+        if (inventoryManager.load(path)) {
+            inventoryMap = inventoryManager.getMap();
             return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public String getInventory() {
@@ -44,22 +39,12 @@ public class Warehouse {
     }
 
     public boolean loadProducts(String path) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            Products products = mapper.readValue(new File(path), Products.class);
-
-            this.productMap = products.getProducts().stream()
-                    .collect(Collectors.toMap(Product::getProductName, product -> product));
-
+        if (productManager.load(path)) {
+            productMap = productManager.getMap();
             updateAvailableProducts();
-
             return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public String getProducts() {
@@ -79,7 +64,7 @@ public class Warehouse {
             String productName = product.getProductName();
             int maxProductsForThisProduct = Integer.MAX_VALUE;
 
-            for (ProductPart part: product.getProductParts()) {
+            for (ProductArticle part: product.getProductParts()) {
                 int articleID = part.getArticleID();
                 int requiredAmount = part.getAmount();
 
@@ -110,9 +95,9 @@ public class Warehouse {
                 availableProducts.put(productName, amountOfProducts - quantity);
     
                 Product product = productMap.get(productName);
-                List<ProductPart> parts = product.getProductParts();
+                List<ProductArticle> parts = product.getProductParts();
     
-                for (ProductPart part : parts) {
+                for (ProductArticle part : parts) {
                     Integer articleID = part.getArticleID();
                     Integer currentAmount = inventoryMap.get(articleID).getArticleStock();
                     Integer amountRequired = part.getAmount() * quantity;
