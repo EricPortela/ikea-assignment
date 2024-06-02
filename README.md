@@ -1,13 +1,10 @@
 # ikea-assignment
 Assignment for discussion during technical interview
 
-### Pros
-- Realtively 
-
-### Cons
+### Improvements
 - Currently both Inventory.java and Products.java store their items in a list (affects time complexity when these grow)
-- Conversion of the lists to HashMaps are performed in the WareHouse class, possibly move to Inventory and Products
 - I load both inventory and products inside of WareHouse, I should have refactored it a bit. I thought of creating two interfaces for loading inventory and products separately each with a load method + getter + map attribute, and then implement the interfaces. Then just use references to the implemented interfaces and call their respective load functions inside of WareHouse
+- Conversion of the lists to HashMaps are performed in the WareHouse class, possibly move to Inventory and Products
 
 
 ### About
